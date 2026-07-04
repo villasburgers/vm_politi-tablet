@@ -14,7 +14,6 @@ Et moderne og optimeret **Mobile Data Terminal (MDT)** til FiveM udviklet af **V
 * 📍 Dispatch integration
 * 🎨 Nem konfiguration
 * ⚡ Optimeret kode
-* 🔒 Sikker kommunikation mellem client/server
 
 ---
 
