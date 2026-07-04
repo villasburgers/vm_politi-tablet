@@ -60,7 +60,7 @@ Her kan du ændre blandt andet:
 
 ## data.js
 
-Her kan du ændre næsten alt data der vises i tabletten.
+Her kan du ændre alt data der vises i tabletten.
 
 Eksempel:
 
