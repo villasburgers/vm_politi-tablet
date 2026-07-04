@@ -2,6 +2,8 @@
 
 Et moderne og optimeret **Mobile Data Terminal (MDT)** til FiveM udviklet af **VM Store**.
 
+DOCS: https://vm-store.gitbook.io/vm-store-docs
+
 ---
 
 # ✨ Features
