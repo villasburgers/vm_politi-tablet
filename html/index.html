@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politi Tablet</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app" class="hidden">
+  <div class="tablet">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="app-icon">👮</div>
+        <div class="app-titles">
+          <div class="app-title">Politi Tablet</div>
+          <div class="app-subtitle">Sager • Bødetakster • Regler</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="brightness">
+          <span>Belysning</span>
+          <input type="range" id="brightnessSlider" min="30" max="100" value="100">
+        </div>
+        <button class="winbtn" id="btnMin" title="Minimer">–</button>
+        <button class="winbtn" id="btnMax" title="Forstør">+</button>
+        <button class="winbtn winbtn-close" id="btnClose" title="Luk">×</button>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="menu-label">Menu</div>
+        <button class="navbtn active" data-page="sager">Sager / Rapporter</button>
+        <button class="navbtn" data-page="forside">Politi Forside</button>
+        <button class="navbtn" data-page="bodetakster">Bødetakster</button>
+        <button class="navbtn" data-page="fart">Fart &amp; Trafik</button>
+        <button class="navbtn" data-page="regler">Regler</button>
+        <button class="navbtn" data-page="radio">Radio</button>
+        <button class="navbtn" data-page="koder">Koder</button>
+        <button class="navbtn" data-page="vaaben">Våbentilladelser</button>
+        <button class="navbtn" data-page="biler">Bil-tilladelser</button>
+        <div class="sidebar-footer">Åbn med <b>/polititablet</b> • Luk med <b>ESC</b></div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="main">
+
+        <!-- ===================== SAGER / RAPPORTER ===================== -->
+        <section class="page active" id="page-sager">
+          <div class="sager-layout">
+
+            <div class="panel sager-list-panel">
+              <div class="panel-header">
+                <div class="panel-title">Sager / Rapporter</div>
+                <div class="panel-actions">
+                  <button class="btn" id="btnRefreshCases">Opdater</button>
+                  <button class="btn btn-primary" id="btnNewCase">+ Ny sag</button>
+                </div>
+              </div>
+              <div class="search-row">
+                <input type="text" id="caseSearch" placeholder="Søg på navn, titel eller status...">
+              </div>
+              <div class="case-list" id="caseList"></div>
+            </div>
+
+            <div class="panel sager-detail-panel">
+              <div class="panel-header">
+                <div class="panel-title">Rapport</div>
+                <div class="panel-actions">
+                  <button class="btn btn-primary" id="btnSaveCase">Gem</button>
+                  <button class="btn btn-danger" id="btnDeleteCase">Slet</button>
+                </div>
+              </div>
+              <div class="panel-sub" id="caseHint">Vælg en sag i listen, eller opret en ny.</div>
+
+              <div id="caseForm" style="display:none;">
+                <div class="form-row">
+                  <label>Navn <span class="muted">Hvem handler sagen om</span></label>
+                  <input type="text" id="caseNavn" placeholder="Fornavn Efternavn">
+                </div>
+                <div class="form-row">
+                  <label>ID/CPR <span class="muted">fx. spiller-ID</span></label>
+                  <input type="text" id="caseId" placeholder="ID / CPR nummer">
+                </div>
+                <div class="form-row">
+                  <label>Titel</label>
+                  <input type="text" id="caseTitel" placeholder="Titel på sagen">
+                </div>
+                <div class="form-row">
+                  <label>Status</label>
+                  <select id="caseStatus">
+                    <option value="Åben">Åben</option>
+                    <option value="Under behandling">Under behandling</option>
+                    <option value="Afsluttet">Afsluttet</option>
+                  </select>
+                </div>
+                <div class="form-row grow">
+                  <label>Rapport</label>
+                  <textarea id="caseTekst" placeholder="Skriv rapport her... (dato, hændelse, beviser, vidner, osv.)"></textarea>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ===================== POLITI FORSIDE ===================== -->
+        <section class="page" id="page-forside">
+          <h1 class="page-title">Forside</h1>
+          <div class="panel">
+            <div class="panel-header">
+              <div class="tag">Nyheder</div>
+              <div class="panel-sub" id="nyhederCount"></div>
+            </div>
+            <div class="news-list" id="nyhederList"></div>
+          </div>
+        </section>
+
+        <!-- ===================== BØDETAKSTER ===================== -->
+        <section class="page" id="page-bodetakster">
+          <h1 class="page-title">Bødetakster</h1>
+          <div class="panel">
+            <div class="tag-row">
+              <div class="tag">Bemærk</div>
+            </div>
+            <ul class="info-list">
+              <li>Klip udløber ALDRIG (3 klip: frakendelse i tre dage). Ved kørsel uden førerret gives der stadig klip - og der kan ikke genoptages før om tre dage fra sidste tilkendegivelse.</li>
+              <li>ALLE bøder og straffe er vejledende - der er altid plads til forhandling og den menneskelige faktor (evt. rådfør Rigspolitichefen i tvivlstilfælde).</li>
+              <li>Husk MAX 20 minutter i fængsel, og ikke mere - ellers får man en politi strike.</li>
+              <li>Der er ikke en maks straf, men gør det fair for personen.</li>
+            </ul>
+            <div class="search-row">
+              <input type="text" id="bodeSearch" placeholder="Søg i tabellen... (forhold, paragraf eller beskrivelse)">
+              <div class="result-count" id="bodeCount"></div>
+            </div>
+            <div class="table-wrap">
+              <table class="datatable">
+                <thead>
+                  <tr>
+                    <th class="col-par">§</th>
+                    <th class="col-forhold">Forhold</th>
+                    <th class="col-faengsel">Fængsel</th>
+                    <th class="col-bode">Bøde</th>
+                    <th class="col-besk">Beskrivelse</th>
+                  </tr>
+                </thead>
+                <tbody id="bodeBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== FART & TRAFIK ===================== -->
+        <section class="page" id="page-fart">
+          <h1 class="page-title">Fart &amp; Trafik</h1>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Bødeberegner</div></div>
+            <div class="calc-row">
+              <div class="form-row">
+                <label>Hastighedszone</label>
+                <select id="fartZone">
+                  <option value="50">50 km/t</option>
+                  <option value="80">80 km/t</option>
+                  <option value="130">130 km/t</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label>Målt hastighed (km/t)</label>
+                <input type="number" id="fartHastighed" min="0" placeholder="fx. 92">
+              </div>
+              <div class="form-row calc-btn-row">
+                <button class="btn btn-primary" id="btnBeregnFart">Beregn bøde</button>
+              </div>
+            </div>
+            <div class="calc-result" id="fartResult"></div>
+          </div>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Takstoversigt (må kun ændres af ledelsen)</div></div>
+            <div class="zone-tabs">
+              <button class="zonebtn active" data-zone="50">50 km/t</button>
+              <button class="zonebtn" data-zone="80">80 km/t</button>
+              <button class="zonebtn" data-zone="130">130 km/t</button>
+            </div>
+            <div class="table-wrap">
+              <table class="datatable">
+                <thead>
+                  <tr>
+                    <th>Hastighed</th>
+                    <th>Bøde</th>
+                    <th>Konsekvens</th>
+                  </tr>
+                </thead>
+                <tbody id="fartTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== REGLER ===================== -->
+        <section class="page" id="page-regler">
+          <h1 class="page-title">Regler</h1>
+          <div class="panel">
+            <div class="tag-row">
+              <div class="tag">Regler</div>
+              <div class="panel-sub" id="reglerCount"></div>
+            </div>
+            <div class="rules-list" id="reglerList"></div>
+          </div>
+        </section>
+
+        <!-- ===================== RADIO ===================== -->
+        <section class="page" id="page-radio">
+          <h1 class="page-title">Radio</h1>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Normal enheder</div><div class="panel-sub">Radio kaldesignaler</div></div>
+            <div class="table-wrap">
+              <table class="datatable">
+                <thead><tr><th>Kaldesignal</th><th>Rolle</th></tr></thead>
+                <tbody id="radioNormalBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Special enheder</div><div class="panel-sub">Radio kaldesignaler</div></div>
+            <div class="table-wrap">
+              <table class="datatable">
+                <thead><tr><th>Kaldesignal</th><th>Rolle</th></tr></thead>
+                <tbody id="radioSpecialBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== KODER ===================== -->
+        <section class="page" id="page-koder">
+          <h1 class="page-title">Koder</h1>
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Bemærk</div><div class="panel-sub">10 - Koder</div></div>
+            <div class="search-row">
+              <input type="text" id="koderSearch" placeholder="Søg i tabellen...">
+              <div class="result-count" id="koderCount"></div>
+            </div>
+            <div class="table-wrap">
+              <table class="datatable">
+                <thead>
+                  <tr><th class="col-kode">Kode</th><th class="col-bet">Betydning</th><th class="col-fork">Forklaring</th></tr>
+                </thead>
+                <tbody id="koderBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== VÅBENTILLADELSER ===================== -->
+        <section class="page" id="page-vaaben">
+          <h1 class="page-title">Våbentilladelser</h1>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Ordenspoliti</div></div>
+            <div class="table-wrap">
+              <table class="datatable permtable" id="vaabenOrdenTable"></table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Special enheder</div></div>
+            <div class="table-wrap">
+              <table class="datatable permtable" id="vaabenSpecialTable"></table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== BIL-TILLADELSER ===================== -->
+        <section class="page" id="page-biler">
+          <h1 class="page-title">Bil-tilladelser</h1>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Ordenspoliti</div></div>
+            <div class="table-wrap">
+              <table class="datatable permtable" id="bilerOrdenTable"></table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Specielle enheder</div></div>
+            <div class="table-wrap">
+              <table class="datatable permtable" id="bilerSpecialTable"></table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="tag-row"><div class="tag">Civil</div></div>
+            <div class="table-wrap">
+              <table class="datatable permtable" id="bilerCivilTable"></table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,23 +1,9 @@
---[[
-██╗   ██╗███╗   ███╗    ███████╗████████╗ ██████╗ ██████╗ ███████╗
-██║   ██║████╗ ████║    ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗██╔════╝
-██║   ██║██╔████╔██║    ███████╗   ██║   ██║   ██║██████╔╝█████╗
-╚██╗ ██╔╝██║╚██╔╝██║    ╚════██║   ██║   ██║   ██║██╔══██╗██╔══╝
- ╚████╔╝ ██║ ╚═╝ ██║    ███████║   ██║   ╚██████╔╝██║  ██║███████╗
-  ╚═══╝  ╚═╝     ╚═╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
-
-                    VM Politi Tablet
-                Made by villas.burgers.alt
-                     discord.gg/27Vzpr4pD9
-]]
-
-
 fx_version 'cerulean'
 game 'gta5'
 
-name        'VM_Politi-Tablet'
-description 'Politi Tablet til vRP lavet af Villas'
-author      'VM_Store'
+name        'villas_polititablet'
+description 'Politi Tablet NUI - vRP'
+author      'Villas'
 version     '1.0.0'
 
 lua54 'yes'
@@ -42,4 +28,3 @@ files {
     'html/script.js',
     'html/data.js'
 }
-
