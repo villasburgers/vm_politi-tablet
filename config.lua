@@ -5,7 +5,7 @@
 Config = {}
 
 Config.Command     = 'tablet'
-Config.RequiredJob = 'Politi'   -- Skal matche præcis det der står i vrp_user_data
+Config.RequiredJob = 'Politi'   -- Skal matche præcis det der står i vrp/cfg/groups.lua
 
 Config.NotificationType = 'native'
 Config.NoAccessMessage  = 'Du er ikke en politibetjent!'
