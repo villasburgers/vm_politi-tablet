@@ -1,6 +1,18 @@
+--[[
+██╗   ██╗███╗   ███╗    ███████╗████████╗ ██████╗ ██████╗ ███████╗
+██║   ██║████╗ ████║    ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗██╔════╝
+██║   ██║██╔████╔██║    ███████╗   ██║   ██║   ██║██████╔╝█████╗
+╚██╗ ██╔╝██║╚██╔╝██║    ╚════██║   ██║   ██║   ██║██╔══██╗██╔══╝
+ ╚████╔╝ ██║ ╚═╝ ██║    ███████║   ██║   ╚██████╔╝██║  ██║███████╗
+  ╚═══╝  ╚═╝     ╚═╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+                    VM Politi Tablet
+                Made by villas.burgers.alt
+                     discord.gg/27Vzpr4pD9
+]]
+
 -- ============================================================
---   VILLAS POLITI TABLET - SERVER (vRP)
---   Job-tjek via vrp_user_data (JSON felt 'job' eller 'groups')
+--   VILLAS POLITI TABLET https://discord.gg/27Vzpr4pD9
 -- ============================================================
 
 local inMemoryCases = {}
@@ -8,7 +20,7 @@ local nextId = 1
 
 local function Log(msg)
     if Config.Debug then
-        print('[villas_polititablet] ' .. tostring(msg))
+        print('VM_Politi-Tablet ' .. tostring(msg))
     end
 end
 
@@ -75,7 +87,7 @@ local function HasVRPJob(src, jobName, cb)
         return
     end
 
-    Log('Job-tjek for ' .. identifier)
+    Log('Job tjek for ' .. identifier)
 
     -- Hent user_id fra vrp_user_ids
     exports.oxmysql:fetch(
@@ -147,45 +159,6 @@ RegisterNetEvent('villas_polititablet:loadCases', function()
         TriggerClientEvent('villas_polititablet:receiveCases', src, IM_List())
     end
 end)
-
--- Update tjek function (Hvis du sletter virker scriptet ikke.)
-
-Citizen.CreateThread(function()
-    print([[
-================================================================================
-██████╗  ██████╗ ██╗     ██╗████████╗██╗
-██╔══██╗██╔═══██╗██║     ██║╚══██╔══╝██║
-██████╔╝██║   ██║██║     ██║   ██║   ██║
-██╔═══╝ ██║   ██║██║     ██║   ██║   ██║
-██║     ╚██████╔╝███████╗██║   ██║   ██║
-╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═╝   ╚═╝
-
-███╗   ███╗██████╗ ████████╗
-████╗ ████║██╔══██╗╚══██╔══╝
-██╔████╔██║██║  ██║   ██║
-██║╚██╔╝██║██║  ██║   ██║
-██║ ╚═╝ ██║██████╔╝   ██║
-╚═╝     ╚═╝╚═════╝    ╚═╝
-
-                 VILLAS POLITI TABLET - https://discord.gg/27Vzpr4pD9
-================================================================================
-STATUS...............ONLINE
-DATABASE.............TILSLUTTET
-ENCRYPTION...........TILSLUTTET
-VERSION..............1.0.0
-================================================================================
-
-VM Politi Tablet:
-MDT er startet - husk og loade Databasen.
-
-Få hjælp på discorden - https://discord.gg/27Vzpr4pD9
-
-Github - https://github.com/villasburgers/vm_politi-tablet
-
-================================================================================
-]])
-end)
-
 
 -- ── Event: Gem sag ───────────────────────────────────────────
 
@@ -261,4 +234,75 @@ RegisterNetEvent('villas_polititablet:deleteCase', function(id)
     end
 end)
 
+-- VERSIONS TJEK med github API
+
+local resourceName = GetCurrentResourceName()
+local currentVersion = GetResourceMetadata(resourceName, "version", 0)
+
+PerformHttpRequest(
+    "https://api.github.com/repos/OWNER/REPO/releases/latest",
+    function(statusCode, body)
+        if statusCode ~= 200 then
+            print(("^1[%s]^7 Failed to check for updates. (%s)"):format(resourceName, statusCode))
+            return
+        end
+
+        local release = json.decode(body)
+        local latestVersion = release.tag_name:gsub("^v", "")
+
+        if currentVersion == latestVersion then
+            print(("^2[%s]^7 You are running the latest version (%s)."):format(resourceName, currentVersion))
+        else
+            print(("^3[%s]^7 Update available! Current: %s | Latest: %s"):format(
+                resourceName,
+                currentVersion,
+                latestVersion
+            ))
+            print(("Download: %s"):format(release.html_url))
+        end
+    end,
+    "GET",
+    "",
+    {
+        ["User-Agent"] = resourceName
+    }
+)
+
+-- LOG
+
 Log('Server loaded.')
+
+Citizen.CreateThread(function()
+    print([[
+================================================================================
+██████╗  ██████╗ ██╗     ██╗████████╗██╗
+██╔══██╗██╔═══██╗██║     ██║╚══██╔══╝██║
+██████╔╝██║   ██║██║     ██║   ██║   ██║
+██╔═══╝ ██║   ██║██║     ██║   ██║   ██║
+██║     ╚██████╔╝███████╗██║   ██║   ██║
+╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═╝   ╚═╝
+
+███╗   ███╗██████╗ ████████╗
+████╗ ████║██╔══██╗╚══██╔══╝
+██╔████╔██║██║  ██║   ██║
+██║╚██╔╝██║██║  ██║   ██║
+██║ ╚═╝ ██║██████╔╝   ██║
+╚═╝     ╚═╝╚═════╝    ╚═╝
+
+                 VILLAS POLITI TABLET - https://discord.gg/27Vzpr4pD9
+================================================================================
+STATUS...............ONLINE
+ENCRYPTION...........TILSLUTTET
+VERSION..............1.0.0
+================================================================================
+
+VM Politi Tablet:
+MDT er startet - husk og loade Databasen.
+
+Få hjælp på discorden - https://discord.gg/27Vzpr4pD9
+
+Github - https://github.com/villasburgers/vm_politi-tablet
+
+================================================================================
+]])
+end)

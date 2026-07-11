@@ -4,7 +4,7 @@ game 'gta5'
 name        'villas_polititablet'
 description 'Politi Tablet NUI - vRP'
 author      'Villas'
-version     '1.0.0'
+version     '1.0.3'
 
 lua54 'yes'
 
